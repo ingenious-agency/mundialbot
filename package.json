@@ -1,0 +1,23 @@
+{
+  "name": "mundialbot",
+  "version": "1.0.0",
+  "description": "A bot that notifies people when you are watching a WorldCup game",
+  "main": "src/index.js",
+  "scripts": {
+    "proxy": "./node_modules/.bin/lt --port 3000 --subdomain mundialbot",
+    "verify": "./node_modules/.bin/slack-verify --token VjXQBL5Sike3nFw5SCFbCA1Z --port=3000",
+    "start": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/client": "^4.3.1",
+    "@slack/events-api": "^1.0.1",
+    "axios": "^0.18.0",
+    "countries-and-timezones": "^1.0.1",
+    "localtunnel": "^1.9.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.0.0"
+  }
+}
