@@ -27,10 +27,12 @@ slackEvents.on('message', async (event) => {
       const playingDetails = userDetails.filter(userDetail => isTeamPlaying(userDetail.country));
       if (playingDetails.length > 0) {
         const people = playingDetails.map(playingDetail => playingDetail.name);
-        const countries = playingDetails.map(playingDetail => playingDetail.country);
+        const countries = playingDetails
+          .map(playingDetail => playingDetail.country) // Only country name
+          .filter((elem, pos, arr) => arr.indexOf(elem) == pos); // Remove duplicates
 
         const isAre = people.length === 1 ? 'is' : 'are';
-        const suffix = people.length === 1 ? '' : ' respectively'
+        const suffix = countries.length === 1 ? '' : ' respectively'
         const heThey = people.length === 1 ? 'he\'ll' : 'they\'ll';
 
         const text = `_${buildPluralConcatenation(people)} ${isAre} watching ${buildPluralConcatenation(countries)}${suffix}, ${heThey} probably respond after the game ends_`;
@@ -47,8 +49,3 @@ slackEvents.on('error', console.error);
 
 // Start a basic HTTP server
 slackEvents.start(PORT).then(() => console.log(`server listening on port ${PORT}`));
-
-// const isCountryPlaying = (country) => {
-//   axios.
-//   // http://api.football-data.org/v1/competitions/467
-// }
