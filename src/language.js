@@ -17,4 +17,14 @@ const buildNationalTeamPlayingMessage = (people, countries) => {
   return `_${buildPluralConcatenation(people)} ${isAre} watching ${buildPluralConcatenation(countries)}${suffix}, ${heThey} probably respond after the game ends_`;
 };
 
-module.exports = { buildPluralConcatenation, buildNationalTeamPlayingMessage };
+const isCurrentGameQuestion = (text) => {
+  return /current game/gm.test(text.toLowerCase())
+}
+
+const buildCurrentGamesMessage = (matches) => {
+  if (matches.length === 0) return '_There are no games, sadly you will need to stop procastinating and work_';
+
+  return `There ${matches.length === 1 ? `is only one game` : `are ${matches.length} games`} currently:\n\n${matches.map(match => `- ${match.homeTeamName} (${match.result.goalsHomeTeam}) vs. ${match.awayTeamName} (${match.result.goalsAwayTeam})`).join('\n ')}`;
+}
+
+module.exports = { buildPluralConcatenation, buildNationalTeamPlayingMessage, isCurrentGameQuestion, buildCurrentGamesMessage };
