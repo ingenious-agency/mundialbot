@@ -6,7 +6,8 @@
   "scripts": {
     "proxy": "./node_modules/.bin/lt --port 3000 --subdomain mundialbot",
     "verify": "./node_modules/.bin/slack-verify --token token-here --port=3000",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",

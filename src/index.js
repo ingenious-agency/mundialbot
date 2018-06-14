@@ -10,7 +10,7 @@ const { WebClient } = require('@slack/client');
 
 const { getUserLocations, mentionedUsers } = require('./slack');
 const { isTeamPlaying } = require('./footbal');
-const { buildPluralConcatenation } = require('./language');
+const { buildNationalTeamPlayingMessage } = require('./language');
 
 const web = new WebClient(SLACK_TOKEN);
 const slackEvents = createSlackEventAdapter(EVENT_TOKEN);
@@ -34,13 +34,7 @@ slackEvents.on('message', async (event) => {
         const countries = playingDetails
           .map(playingDetail => playingDetail.country) // Only country name
           .filter((elem, pos, arr) => arr.indexOf(elem) == pos); // Remove duplicates
-
-        const isAre = people.length === 1 ? 'is' : 'are';
-        const suffix = countries.length === 1 ? '' : ' respectively'
-        const heThey = people.length === 1 ? 'he\'ll' : 'they\'ll';
-
-        const text = `_${buildPluralConcatenation(people)} ${isAre} watching ${buildPluralConcatenation(countries)}${suffix}, ${heThey} probably respond after the game ends_`;
-        sendMessage(event.channel, text);
+        sendMessage(event.channel, buildNationalTeamPlayingMessage(people, countries));
       }
     }
   } catch (e) {

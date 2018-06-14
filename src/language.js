@@ -9,4 +9,12 @@ const buildPluralConcatenation = (enumeration) => {
   }
 };
 
-module.exports = { buildPluralConcatenation };
+const buildNationalTeamPlayingMessage = (people, countries) => {
+  const isAre = people.length === 1 ? 'is' : 'are';
+  const suffix = countries.length === 1 ? '' : ' respectively'
+  const heThey = people.length === 1 ? 'he\'ll' : 'they\'ll';
+
+  return `_${buildPluralConcatenation(people)} ${isAre} watching ${buildPluralConcatenation(countries)}${suffix}, ${heThey} probably respond after the game ends_`;
+};
+
+module.exports = { buildPluralConcatenation, buildNationalTeamPlayingMessage };
