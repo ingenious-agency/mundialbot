@@ -24,7 +24,11 @@ slackEvents.on('message', async (event) => {
     const userIds = mentionedUsers(event.text);
     if (userIds) {
       const userDetails = await getUserLocations(SLACK_TOKEN, userIds);
-      const playingDetails = userDetails.filter(userDetail => isTeamPlaying(userDetail.country));
+      const playingDetails = [];
+      for (let userDetail of userDetails) {
+        const isPlaying = await isTeamPlaying(userDetail.country);
+        if(isPlaying) playingDetails.push(userDetail);
+      }
       if (playingDetails.length > 0) {
         const people = playingDetails.map(playingDetail => playingDetail.name);
         const countries = playingDetails
