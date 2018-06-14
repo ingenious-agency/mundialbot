@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "proxy": "./node_modules/.bin/lt --port 3000 --subdomain mundialbot",
-    "verify": "./node_modules/.bin/slack-verify --token VjXQBL5Sike3nFw5SCFbCA1Z --port=3000",
+    "verify": "./node_modules/.bin/slack-verify --token token-here --port=3000",
     "start": "node src/index.js"
   },
   "author": "",
