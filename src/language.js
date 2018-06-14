@@ -22,7 +22,7 @@ const isCurrentGameQuestion = (text) => {
 }
 
 const buildCurrentGamesMessage = (matches) => {
-  if (matches.length === 0) return '_There are no games, you will need to stop procastinating and do some actual work_';
+  if (matches.length === 0) return '_There are no games, please stop procastinating and do some actual work_';
 
   return `There ${matches.length === 1 ? `is only one game` : `are ${matches.length} games`} currently:\n\n${matches.map(match => `- ${match.homeTeamName} (${match.result.goalsHomeTeam}) vs. ${match.awayTeamName} (${match.result.goalsAwayTeam})`).join('\n ')}`;
 }
