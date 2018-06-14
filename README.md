@@ -4,7 +4,7 @@ MundialBot⚽️ is a Slack bot for distributed teams watching the WorldCup
 
 ## What problem does it solve?
 
-You know that moment when somebody mentions you on Slack and you are watching your team playing at the WorldCup, you try keep watching the game while answering with your phone just to drop your phone and miss an important play.
+You know that moment when somebody mentions you on Slack while you are watching your team playing at the WorldCup, you try to keep watching the game while answering the message with your phone just to miss an important play.
 
 MundialBot⚽️ solves it by looking at your timezone to guess your country and looks if your national team is playing, if so it automatically answers the mention with something similar to this:
 
@@ -47,4 +47,4 @@ Slack apps are a complex beast, you have a tons of options, this is what you nee
 
 ### Verify your slack app
 
-To verify your slack app to receive events from slack you need to got to "Event Subscriptions" and set the Request url to something like `https://app-name.herokuapp.com/slack/events`. This will fai, don't worry, go to your terminal and type `heroku run npm run verify -a app-name`, this will start a server that will respond to the slack verification, try veryfing again, this time it should work.
+To verify your slack app to receive events from slack you need to got to "Event Subscriptions" and set the Request url to something like `https://app-name.herokuapp.com/slack/events`. This will fail, don't worry, go to your terminal and type `heroku run npm run verify -a app-name` and start your app on Heroku, this will start a server that will respond to the slack verification, try veryfing again, this time it should work.
