@@ -30,7 +30,9 @@ slackEvents.on('message', async (event) => {
         if(isPlaying) playingDetails.push(userDetail);
       }
       if (playingDetails.length > 0) {
-        const people = playingDetails.map(playingDetail => playingDetail.name);
+        const people = playingDetails
+          .map(playingDetail => playingDetail.name)
+          .filter((elem, pos, arr) => arr.indexOf(elem) == pos);
         const countries = playingDetails
           .map(playingDetail => playingDetail.country) // Only country name
           .filter((elem, pos, arr) => arr.indexOf(elem) == pos); // Remove duplicates
