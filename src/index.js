@@ -10,7 +10,7 @@ const { WebClient } = require('@slack/client');
 
 const { getUserLocations, mentionedUsers } = require('./slack');
 const { isTeamPlaying, getPlayingGames } = require('./footbal');
-const { buildNationalTeamPlayingMessage, isCurrentGameQuestion, buildCurrentGamesMessage } = require('./language');
+const { buildNationalTeamPlayingMessage, isCurrentGameQuestion, buildCurrentGamesMessage, buildGenericAnswer } = require('./language');
 
 const web = new WebClient(SLACK_TOKEN);
 const slackEvents = createSlackEventAdapter(EVENT_TOKEN);
@@ -30,12 +30,8 @@ slackEvents.on('message', async (event) => {
         if(isPlaying) playingDetails.push(userDetail);
       }
       if (playingDetails.length > 0) {
-        const people = playingDetails
-          .map(playingDetail => playingDetail.name)
-          .filter((elem, pos, arr) => arr.indexOf(elem) == pos);
-        const countries = playingDetails
-          .map(playingDetail => playingDetail.country) // Only country name
-          .filter((elem, pos, arr) => arr.indexOf(elem) == pos); // Remove duplicates
+        const people = playingDetails.map(playingDetail => playingDetail.name);
+        const countries = playingDetails.map(playingDetail => playingDetail.country);
         sendMessage(event.channel, buildNationalTeamPlayingMessage(people, countries));
       }
     }
@@ -51,7 +47,7 @@ slackEvents.on('app_mention', async (event) => {
       const matches = await getPlayingGames();
       text = buildCurrentGamesMessage(matches);
     } else {
-      text = '_I don\'t know how to answer the question, I can answer the following questions:_\n\n - How\'s the current game, @mundialbot?';
+      text = buildGenericAnswer();
     }
     sendMessage(event.channel, text);
   } catch (e) {

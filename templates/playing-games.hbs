@@ -1,0 +1,5 @@
+There {{#if plural}}are {{matchCount}} games{{else}}is only one game{{/if}} currently:
+
+{{#each matches as |m|}}
+  - {{match m}}
+{{/each}}

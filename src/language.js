@@ -1,20 +1,18 @@
-const buildPluralConcatenation = (enumeration) => {
-  if (enumeration.length === 0 || enumeration.length === 1) {
-    return enumeration[0];
-  } else if (enumeration.length === 2) {
-    return enumeration.join(' and ');
-  } else {
-    let regulars = enumeration.slice(0, enumeration.length - 1);
-    return regulars.join(', ') + ' and ' + enumeration[enumeration.length - 1];
-  }
-};
+const { execute } = require('../templates');
+
+const uniq = (arr) =>
+  arr.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
 
 const buildNationalTeamPlayingMessage = (people, countries) => {
-  const isAre = people.length === 1 ? 'is' : 'are';
-  const suffix = countries.length === 1 ? '' : ' respectively'
-  const heThey = people.length === 1 ? 'he\'ll' : 'they\'ll';
+  people = uniq(people)
+  countries = uniq(countries);
 
-  return `_${buildPluralConcatenation(people)} ${isAre} watching ${buildPluralConcatenation(countries)}${suffix}, ${heThey} probably respond after the game ends_`;
+  return execute('national-team-playing', {
+    people,
+    pluralPeople: people.length > 1,
+    countries,
+    pluarlCountries: countries.length > 1
+  });
 };
 
 const isCurrentGameQuestion = (text) => {
@@ -22,9 +20,13 @@ const isCurrentGameQuestion = (text) => {
 }
 
 const buildCurrentGamesMessage = (matches) => {
-  if (matches.length === 0) return '_There are no games, please stop procastinating and do some actual work_';
+  if (matches.length === 0) return execute('no-games');
 
-  return `There ${matches.length === 1 ? `is only one game` : `are ${matches.length} games`} currently:\n\n${matches.map(match => `- ${match.homeTeamName} (${match.result.goalsHomeTeam}) vs. ${match.awayTeamName} (${match.result.goalsAwayTeam})`).join('\n ')}`;
+  return execute('playing-games', { matches, plural: matches.length > 1, matchCount: matches.length });
 }
 
-module.exports = { buildPluralConcatenation, buildNationalTeamPlayingMessage, isCurrentGameQuestion, buildCurrentGamesMessage };
+const buildGenericAnswer = () => {
+  return execute('generic-answer');
+}
+
+module.exports = { buildNationalTeamPlayingMessage, isCurrentGameQuestion, buildCurrentGamesMessage, buildGenericAnswer };
