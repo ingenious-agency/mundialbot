@@ -11,7 +11,7 @@ const buildNationalTeamPlayingMessage = (people, countries) => {
     people,
     pluralPeople: people.length > 1,
     countries,
-    pluarlCountries: countries.length > 1
+    pluralCountries: countries.length > 1
   });
 };
 

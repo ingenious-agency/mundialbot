@@ -1,9 +1,9 @@
 const axios = require('axios');
-const WORLD_CUP_URL = 'http://api.football-data.org/v1/competitions/467/fixtures';
+const WORLD_CUP_URL = 'http://api.football-data.org/v2/competitions/2267/matches';
 
 const getPlayingGames = async () => {
   const response = await axios.get(WORLD_CUP_URL);
-  return response.data.fixtures.filter(fixture => fixture.status === "IN_PLAY");
+  return response.data.matches.filter(match => match.status === "IN_PLAY");
 };
 
 const isTeamPlaying = async (team) => {
