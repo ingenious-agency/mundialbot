@@ -20,7 +20,7 @@ module Mundialbot
     end
 
     def mentions?
-      users.lentgh > 0
+      users.length > 0
     end
   end
 end
